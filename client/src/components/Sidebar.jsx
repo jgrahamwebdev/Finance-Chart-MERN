@@ -12,26 +12,25 @@ import {
   HomeIcon,
   UsersIcon,
   XMarkIcon,
-  QuestionMarkCircleIcon
+  QuestionMarkCircleIcon,
+  CurrencyDollarIcon
 } from '@heroicons/react/24/outline'
 import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import Chart from './Chart'
+import TrackExpenseScreen from '../screens/TrackExpenseScreen'
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Team', href: '#', icon: UsersIcon, current: false },
-  { name: 'Projects', href: '#', icon: FolderIcon, current: false },
-  { name: 'Calendar', href: '#', icon: CalendarIcon, current: false },
+  { name: 'Calendar', href: '/calendar', icon: CalendarIcon, current: false },
   { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
-  { name: 'Reports', href: '#', icon: ChartPieIcon, current: false },
 ]
 const teams = [
-  { id: 1, name: 'Heroicons', href: '#', initial: 'H', current: false },
-  { id: 2, name: 'Tailwind Labs', href: '#', initial: 'T', current: false },
-  { id: 3, name: 'Workcation', href: '#', initial: 'W', current: false },
+  { id: 1, name: 'House', href: '#', initial: 'H', current: false },
+  { id: 2, name: 'New Car', href: '#', initial: 'N', current: false },
+  { id: 3, name: 'Vacation', href: '#', initial: 'V', current: false },
 ]
 const userNavigation = [
-  { name: 'Your profile', href: '#' },
+  // { name: 'Your profile', href: '#' },
   { name: 'Sign out', href: '#' },
 ]
 
@@ -42,6 +41,9 @@ function classNames(...classes) {
 
 const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
+    
+    const [showModal, setShowModal] = useState(false);
+    const [closeModal, setcloseModal] = useState(true);
 
     return (
         <div>
@@ -106,14 +108,14 @@ const Sidebar = () => {
                                   href={item.href}
                                   className={classNames(
                                     item.current
-                                      ? 'bg-gray-50 text-blue-600'
-                                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50',
+                                      ? 'bg-gray-50 text-blue-500'
+                                      : 'text-gray-700 hover:text-blue-500 hover:bg-gray-50',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                   )}
                                 >
                                   <item.icon
                                     className={classNames(
-                                      item.current ? 'text-blue-600' : 'text-gray-400 group-hover:text-blue-600',
+                                      item.current ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500',
                                       'h-6 w-6 shrink-0'
                                     )}
                                     aria-hidden="true"
@@ -133,16 +135,16 @@ const Sidebar = () => {
                                   href={team.href}
                                   className={classNames(
                                     team.current
-                                      ? 'bg-gray-50 text-blue-600'
-                                      : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50',
+                                      ? 'bg-gray-50 text-blue-500'
+                                      : 'text-gray-700 hover:text-blue-500 hover:bg-gray-50',
                                     'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                                   )}
                                 >
                                   <span
                                     className={classNames(
                                       team.current
-                                        ? 'text-blue-600 border-blue-600'
-                                        : 'text-gray-400 border-gray-200 group-hover:border-blue-600 group-hover:text-blue-600',
+                                        ? 'text-blue-500 border-blue-500'
+                                        : 'text-gray-400 border-gray-200 group-hover:border-blue-500 group-hover:text-blue-500',
                                       'flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'
                                     )}
                                   >
@@ -157,10 +159,10 @@ const Sidebar = () => {
                         <li className="mt-auto">
                           <a
                             href="#"
-                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-600"
+                            className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-500"
                           >
                             <Cog6ToothIcon
-                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-600"
+                              className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-500"
                               aria-hidden="true"
                             />
                             Settings
@@ -197,14 +199,14 @@ const Sidebar = () => {
                           href={item.href}
                           className={classNames(
                             item.current
-                              ? 'bg-gray-50 text-blue-600'
-                              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50',
+                              ? 'bg-gray-50 text-blue-500'
+                              : 'text-gray-700 hover:text-blue-500 hover:bg-gray-50',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                           )}
                         >
                           <item.icon
                             className={classNames(
-                              item.current ? 'text-blue-600' : 'text-gray-400 group-hover:text-blue-600',
+                              item.current ? 'text-blue-500' : 'text-gray-400 group-hover:text-blue-500',
                               'h-6 w-6 shrink-0'
                             )}
                             aria-hidden="true"
@@ -216,7 +218,7 @@ const Sidebar = () => {
                   </ul>
                 </li>
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                  <div className="text-xs font-semibold leading-6 text-gray-400">Expense Goals</div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
                     {teams.map((team) => (
                       <li key={team.name}>
@@ -224,16 +226,16 @@ const Sidebar = () => {
                           href={team.href}
                           className={classNames(
                             team.current
-                              ? 'bg-gray-50 text-blue-600'
-                              : 'text-gray-700 hover:text-blue-600 hover:bg-gray-50',
+                              ? 'bg-gray-50 text-blue-500'
+                              : 'text-gray-700 hover:text-blue-500 hover:bg-gray-50',
                             'group flex gap-x-3 rounded-md p-2 text-sm leading-6 font-semibold'
                           )}
                         >
                           <span
                             className={classNames(
                               team.current
-                                ? 'text-indigo-600 border-blue-600'
-                                : 'text-gray-400 border-gray-200 group-hover:border-blue-600 group-hover:text-blue-600',
+                                ? 'text-indigo-600 border-blue-500'
+                                : 'text-gray-400 border-gray-200 group-hover:border-blue-500 group-hover:text-blue-500',
                               'flex h-6 w-6 shrink-0 items-center justify-center rounded-lg border text-[0.625rem] font-medium bg-white'
                             )}
                           >
@@ -251,7 +253,7 @@ const Sidebar = () => {
                     className="group -mx-2 flex gap-x-3 rounded-md p-2 text-sm font-semibold leading-6 text-gray-700 hover:bg-gray-50 hover:text-blue-600"
                   >
                     <Cog6ToothIcon
-                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-600"
+                      className="h-6 w-6 shrink-0 text-gray-400 group-hover:text-blue-500"
                       aria-hidden="true"
                     />
                     Settings
@@ -273,8 +275,10 @@ const Sidebar = () => {
             <div className="h-6 w-px bg-gray-200 lg:hidden" aria-hidden="true" />
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
-              <div className="relative flex flex-1" action="#" method="GET">
-                
+              <div className="flex items-center gap-x-4 lg:gap-x-6 flex-1">
+                <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-md px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex justify-between" type="button" onClick={() => setShowModal(true)}>
+                <CurrencyDollarIcon className="h-6 w-6 mr-2"/>Track Expense
+                </button>
               </div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
                 <button type="button" className="-m-2.5 p-2.5 text-gray-400 hover:text-blue-600">
@@ -332,6 +336,93 @@ const Sidebar = () => {
               </div>
             </div>
           </div>
+
+        {/* MODAL WINDOW */}
+          {showModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4 md:mx-0"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg shadow-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8">
+
+              <div className="w-screen h-3/4 flex items-center justify-center">
+            <div>
+
+            <div className="mb-8">
+                <label htmlFor="deposit" className="block text-sm font-medium leading-6 text-gray-900">
+                    Amount Deposted
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span className="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="deposit"
+                      id="deposit"
+                      className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="0"
+                      aria-describedby="price-currency"
+                    />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                        <span className="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className='mb-8'>
+                <label htmlFor="spent" className="block text-sm font-medium leading-6 text-gray-900">
+                    Amount Spent
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span className="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="spent"
+                      id="spent"
+                      className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="0"
+                      aria-describedby="price-currency"
+                    />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                        <span className="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className='mb-8'>
+                <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">
+                   Date
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <input
+                      type="text"
+                      name="date"
+                      id="date"
+                      className="block w-full rounded-md border-0 py-1.5 pl-4 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="mm/dd/yyyy"
+                    />
+                </div>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600`} onClick={() => setShowModal(false)}>Submit </button>
+              <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => setShowModal(false)}>Cancel</button>
+            </div>
+
+            </div>
+        </div>
+
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+      ) : null}
 
         {/* PUT OTHER COMPONENTS HERE: */}
           <main className="py-10">

@@ -5,6 +5,8 @@ import DashboardScreen from './screens/DashboardScreen';
 import LoginScreen from './screens/LoginScreen';
 import RegisterScreen from './screens/RegisterScreen';
 import HomeScreen from './screens/HomeScreen';
+import TrackExpenseScreen from './screens/TrackExpenseScreen';
+import Calendar from './components/Calendar';
 
 function App() {
   return (
@@ -15,6 +17,7 @@ function App() {
         <Route path='/dashboard' element={<DashboardScreen /> } />
         <Route path='/login' element={<LoginScreen /> } />
         <Route path='/register' element={<RegisterScreen /> } />
+        <Route path='/calendar' element={<Calendar /> } />
       </Routes>
     </div>
     </Router>
