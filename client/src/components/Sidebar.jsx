@@ -3,26 +3,29 @@ import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
-  BellIcon,
-  CalendarIcon,
-  ChartPieIcon,
+  CalendarDaysIcon,
+  CreditCardIcon,
   Cog6ToothIcon,
   DocumentDuplicateIcon,
-  FolderIcon,
+  ChartPieIcon,
   HomeIcon,
+  ClipboardDocumentListIcon,
   UsersIcon,
   XMarkIcon,
   QuestionMarkCircleIcon,
   CurrencyDollarIcon
 } from '@heroicons/react/24/outline'
-import { ChevronDownIcon, MagnifyingGlassIcon } from '@heroicons/react/20/solid'
-import Chart from './Chart'
-import TrackExpenseScreen from '../screens/TrackExpenseScreen'
+import { ChevronDownIcon } from '@heroicons/react/20/solid'
+import LineChart from './LineChart'
+import PiechartOne from './PiechartOne'
+import { Link } from 'react-router-dom'
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
-  { name: 'Calendar', href: '/calendar', icon: CalendarIcon, current: false },
-  { name: 'Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  { name: 'My Cards', href: '#', icon: CreditCardIcon, current: false },
+  { name: 'My Documents', href: '#', icon: DocumentDuplicateIcon, current: false },
+  { name: 'Spending Planner', href: '/planner', icon: ClipboardDocumentListIcon, current: false },
+  { name: 'Talk to an Advisor', href: '#', icon: UsersIcon, current: false },
 ]
 const teams = [
   { id: 1, name: 'House', href: '#', initial: 'H', current: false },
@@ -43,7 +46,7 @@ const Sidebar = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false)
     
     const [showModal, setShowModal] = useState(false);
-    const [closeModal, setcloseModal] = useState(true);
+    const [showPieModal, setShowPieModal] = useState(false);
 
     return (
         <div>
@@ -92,11 +95,11 @@ const Sidebar = () => {
                   {/* Sidebar component, swap this element with another sidebar if you like */}
                   <div className="flex grow flex-col gap-y-5 overflow-y-auto bg-white px-6 pb-4">
                     <div className="flex h-16 shrink-0 items-center">
-                      <img
+                      <Link to={'/'}><img
                         className="h-8 w-auto"
                         src="./imgs/full-logo.png"
                         alt="Your Company"
-                      />
+                      /></Link>
                     </div>
                     <nav className="flex flex-1 flex-col">
                       <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -127,7 +130,16 @@ const Sidebar = () => {
                           </ul>
                         </li>
                         <li>
-                          <div className="text-xs font-semibold leading-6 text-gray-400">Your teams</div>
+                        
+                        <div className='mb-5 w-full'>
+                          <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-sm md:text-md px-6 py-1 md:py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-3 ease-linear transition-all duration-150 flex items-center justify-around w-[75%]" type="button" onClick={() =>( setShowModal(true), setSidebarOpen(false))}>
+                            <CurrencyDollarIcon className="h-6 w-6"/>Track Expense
+                          </button>
+                          <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-sm md:text-md px-6 py-1 md:py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex items-center justify-around w-[75%]" type="button" onClick={() =>( setShowPieModal(true), setSidebarOpen(false))}>
+                            <ChartPieIcon className="h-6 w-6"/>Add to Savings
+                          </button>
+                        </div>
+                          <div className="text-xs font-semibold leading-6 text-gray-400">Savings Goals</div>
                           <ul role="list" className="-mx-2 mt-2 space-y-1">
                             {teams.map((team) => (
                               <li key={team.name}>
@@ -183,11 +195,11 @@ const Sidebar = () => {
           {/* Sidebar component, swap this element with another sidebar if you like */}
           <div className="flex grow flex-col gap-y-5 overflow-y-auto border-r border-gray-200 bg-white px-6 pb-4">
             <div className="flex h-16 shrink-0 items-center">
-              <img
+              <Link to={'/'}><img
                 className="h-8 w-auto"
                 src="./imgs/full-logo.png"
                 alt="Your Company"
-              />
+              /></Link>
             </div>
             <nav className="flex flex-1 flex-col">
               <ul role="list" className="flex flex-1 flex-col gap-y-7">
@@ -218,7 +230,7 @@ const Sidebar = () => {
                   </ul>
                 </li>
                 <li>
-                  <div className="text-xs font-semibold leading-6 text-gray-400">Expense Goals</div>
+                  <div className="text-xs font-semibold leading-6 text-gray-400">Savings Goals</div>
                   <ul role="list" className="-mx-2 mt-2 space-y-1">
                     {teams.map((team) => (
                       <li key={team.name}>
@@ -276,8 +288,11 @@ const Sidebar = () => {
 
             <div className="flex flex-1 gap-x-4 self-stretch lg:gap-x-6">
               <div className="flex items-center gap-x-4 lg:gap-x-6 flex-1">
-                <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-md px-6 py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 flex justify-between" type="button" onClick={() => setShowModal(true)}>
+                <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-sm md:text-md px-6 py-1 md:py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hidden md:flex items-center justify-between" type="button" onClick={() => setShowModal(true)}>
                 <CurrencyDollarIcon className="h-6 w-6 mr-2"/>Track Expense
+                </button>
+                <button className="bg-blue-500 text-white active:bg-blue-600 font-light text-sm md:text-md px-6 py-1 md:py-2 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150 hidden md:flex items-center justify-between" type="button" onClick={() => setShowPieModal(true)}>
+                <ChartPieIcon className="h-6 w-6 mr-2"/>Add to Savings
                 </button>
               </div>
               <div className="flex items-center gap-x-4 lg:gap-x-6">
@@ -337,15 +352,15 @@ const Sidebar = () => {
             </div>
           </div>
 
-        {/* MODAL WINDOW */}
-          {showModal ? (
+        {/* EXPENSE MODAL WINDOW */}
+        {showModal ? (
         <>
           <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4 md:mx-0"
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8">
+              <div className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]">
 
               <div className="w-screen h-3/4 flex items-center justify-center">
             <div>
@@ -422,12 +437,95 @@ const Sidebar = () => {
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
         </>
-      ) : null}
+        ) : null}
+
+        {/* SAVINGS MODAL WINDOW */}
+        {showPieModal ? (
+        <>
+          <div
+            className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none mx-4 md:mx-0"
+          >
+            <div className="relative w-auto my-6 mx-auto max-w-3xl">
+              {/*content*/}
+              <div className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]">
+
+              <div className="w-screen h-3/4 flex items-center justify-center">
+            <div>
+
+            <div className='mb-8'>
+                <label htmlFor="saved" className="block text-sm font-medium leading-6 text-gray-900">
+                    Amount Saved
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                        <span className="text-gray-500 sm:text-sm">$</span>
+                    </div>
+                    <input
+                      type="text"
+                      name="saved"
+                      id="saved"
+                      className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="0"
+                      aria-describedby="price-currency"
+                    />
+                    <div className="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3">
+                        <span className="text-gray-500 sm:text-sm" id="price-currency">USD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div className='mb-8'>
+                <label htmlFor="goal" className="block text-sm font-medium leading-6 text-gray-900">
+                  Which goal are you saving for?
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <input
+                      type="text"
+                      name="goal"
+                      id="goal"
+                      className="block w-full rounded-md border-0 py-1.5 pl-4 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="ex: House"
+                    />
+                </div>
+            </div>
+
+            <div className='mb-8'>
+                <label htmlFor="date" className="block text-sm font-medium leading-6 text-gray-900">
+                   Date
+                </label>
+                <div className="relative mt-2 rounded-md shadow-sm">
+                    <input
+                      type="text"
+                      name="date"
+                      id="date"
+                      className="block w-full rounded-md border-0 py-1.5 pl-4 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
+                      placeholder="mm/dd/yyyy"
+                    />
+                </div>
+            </div>
+
+            <div className='flex items-center justify-between'>
+              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600`} onClick={() => setShowPieModal(false)}>Submit </button>
+              <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => setShowPieModal(false)}>Cancel</button>
+            </div>
+
+            </div>
+        </div>
+
+              </div>
+            </div>
+          </div>
+          <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>
+        </>
+        ) : null}
+
+
 
         {/* PUT OTHER COMPONENTS HERE: */}
-          <main className="py-10">
-            <div className="px-4 sm:px-6 lg:px-8">
-                <Chart />
+          <main className="py-10 h-auto">
+            <div className="px-4 sm:px-6 lg:px-8 h-auto">
+                <LineChart />
+                <PiechartOne />
             </div>
           </main>
         </div>
