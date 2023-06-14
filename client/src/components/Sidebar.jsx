@@ -19,6 +19,7 @@ import { ChevronDownIcon } from '@heroicons/react/20/solid'
 import LineChart from './LineChart'
 import PiechartOne from './PiechartOne'
 import { Link } from 'react-router-dom'
+import Footer from './Footer'
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -520,12 +521,12 @@ const Sidebar = () => {
         ) : null}
 
 
-
         {/* PUT OTHER COMPONENTS HERE: */}
           <main className="py-10 h-auto">
             <div className="px-4 sm:px-6 lg:px-8 h-auto">
                 <LineChart />
                 <PiechartOne />
+                <Footer />
             </div>
           </main>
         </div>

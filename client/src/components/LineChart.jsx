@@ -97,7 +97,7 @@ const LineChart = () => {
           <div className='w-full h-auto flex items-center justify-center flex-col border-b-2'>
               <Line data={data} options={options}></Line>
 
-              <div className="px-4 sm:px-6 lg:px-8 w-3/4 md:w-[65%] my-8">
+              <div className="px-4 sm:px-6 lg:px-8 w-3/4 my-8">
                   <h1 className='text-[2rem] font-extralight'>Expense Log:</h1>
                   <div className="mt-2 flow-root">
                     <div className="-mx-4 -my-2 sm:-mx-6 lg:-mx-8">
