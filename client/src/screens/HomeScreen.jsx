@@ -1,3 +1,4 @@
+import { useRef } from "react"
 import Hero from "../components/Hero"
 import LandingFooter from "../components/LandingFooter"
 import Navbar from "../components/Navbar"
@@ -7,15 +8,10 @@ import Team from "../components/Team"
 import Testimonials from "../components/Testimonials"
 
 const HomeScreen = () => {
+
     return (
-        <div>
+        <div className="flex items-center justify-center flex-col">
             <Navbar />
-            <Hero />
-            <Stats />
-            <Team />
-            <Testimonials />
-            <Newsletter />
-            <LandingFooter />
         </div>
     )
 }

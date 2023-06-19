@@ -1,7 +1,7 @@
 
 const Newsletter = () => {
     return (
-        <div className="bg-white py-16 sm:py-24 lg:py-32">
+        <div className="bg-white py-16 sm:py-24 lg:py-32 border-2">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-10 px-6 lg:grid-cols-12 lg:gap-8 lg:px-8">
         <div className="max-w-xl text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl lg:col-span-7">
           <h2 className="inline sm:block lg:inline xl:block mb-2">Stay up to date on financial news.</h2>{' '}
@@ -23,8 +23,7 @@ const Newsletter = () => {
             />
             <button
               type="submit"
-              className="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600"
-            >
+              className="flex-none rounded-md bg-blue-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-blue-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-blue-600">
               Subscribe
             </button>
           </div>

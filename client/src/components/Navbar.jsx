@@ -1,8 +1,14 @@
 
-import { useState } from 'react'
+import { useState, useRef } from 'react'
 import { Dialog } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link } from 'react-router-dom'
+import Hero from './Hero'
+import Stats from './Stats'
+import Team from './Team'
+import Testimonials from './Testimonials'
+import Newsletter from './Newsletter'
+import LandingFooter from './LandingFooter'
 
 const navigation = [
   { name: 'Product', href: '#' },
@@ -15,19 +21,19 @@ const Navbar = () => {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
     return (
-        <header className="bg-white">
-      <nav className="mx-auto flex max-w-7xl border-b-2 items-center justify-between p-6 lg:px-8" aria-label="Global">
+      <>
+        <header className="bg-white w-full">
+      <nav className="mx-auto flex w-full border-b-2 items-center justify-between p-6 lg:px-8 md:mb-[2rem] fixed bg-white z-20" aria-label="Global">
         <div className="flex items-center gap-x-12">
           <a href="#" className="-m-1.5 p-1.5">
             <span className="sr-only">Your Company</span>
             <img className="h-8 w-auto" src="./imgs/full-logo.png" alt="" />
           </a>
           <div className="hidden lg:flex lg:gap-x-12">
-            {navigation.map((item) => (
-              <a key={item.name} href={item.href} className="text-sm font-semibold leading-6 text-gray-900">
-                {item.name}
-              </a>
-            ))}
+              <a className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500 cursor-pointer">Product</a>
+              <a className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500 cursor-pointer" >Team</a>
+              <a className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500 cursor-pointer" >Testimonials</a>
+              <a className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500 cursor-pointer">Company</a>
           </div>
         </div>
         <div className="flex lg:hidden">
@@ -41,7 +47,7 @@ const Navbar = () => {
           </button>
         </div>
         <div className="hidden lg:flex">
-          <Link to={'/login'}><p className="text-sm font-semibold leading-6 text-gray-900">
+          <Link to={'/login'}><p className="text-sm font-semibold leading-6 text-gray-900 hover:text-blue-500">
             Log in <span aria-hidden="true">&rarr;</span>
           </p></Link>
         </div>
@@ -92,6 +98,13 @@ const Navbar = () => {
         </Dialog.Panel>
       </Dialog>
     </header>
+    <Hero />
+    <Stats />
+    <Team />
+    <Testimonials />
+    <Newsletter />
+    <LandingFooter />
+    </>
     )
 }
 
