@@ -20,6 +20,7 @@ import LineChart from './LineChart'
 import PiechartOne from './PiechartOne'
 import { Link } from 'react-router-dom'
 import Footer from './Footer'
+import axios from 'axios';
 
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
@@ -48,6 +49,24 @@ const Sidebar = () => {
     
     const [showModal, setShowModal] = useState(false);
     const [showPieModal, setShowPieModal] = useState(false);
+
+    const [deposit, setDeposit] = useState(0);
+    const [spent, setSpent] = useState(0);
+    const [date, setDate] = useState("");
+
+    const onSubmitHandler = (e) => {
+      e.preventDefault();
+      axios.post('http://localhost:8000/api/expense', {
+        deposit,
+        spent,
+        date
+      })
+      .then(res => {
+        console.log(res)
+        console.log(res.data)
+      })
+      .catch(err => console.log(err))
+    }
 
     return (
         <div>
@@ -361,7 +380,7 @@ const Sidebar = () => {
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]">
+              <div className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]" onSubmit={onSubmitHandler}>
 
               <div className="w-screen h-3/4 flex items-center justify-center">
             <div>
@@ -377,7 +396,7 @@ const Sidebar = () => {
                     <input
                       type="text"
                       name="deposit"
-                      id="deposit"
+                      onChange={(e)=>setDeposit(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="0"
                       aria-describedby="price-currency"
@@ -399,7 +418,7 @@ const Sidebar = () => {
                     <input
                       type="text"
                       name="spent"
-                      id="spent"
+                      onChange={(e)=>setSpent(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="0"
                       aria-describedby="price-currency"
@@ -417,8 +436,7 @@ const Sidebar = () => {
                 <div className="relative mt-2 rounded-md shadow-sm">
                     <input
                       type="text"
-                      name="date"
-                      id="date"
+                      onChange={(e)=>setDate(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-4 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="mm/dd/yyyy"
                     />
@@ -426,7 +444,7 @@ const Sidebar = () => {
             </div>
 
             <div className='flex items-center justify-between'>
-              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600`} onClick={() => setShowModal(false)}>Submit </button>
+              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600`} onClick={() => setShowModal(false)} type='submit'>Submit </button>
               <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => setShowModal(false)}>Cancel</button>
             </div>
 
