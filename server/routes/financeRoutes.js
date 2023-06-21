@@ -2,10 +2,10 @@
 const FinanceController = require("../controllers/financeController");  
 
 module.exports = (app) => {
-    //Get ALL Posts
-    // app.get("/api", FinanceController.index)
+    // Get ALL Expenses
+    app.get("/api/expenses", FinanceController.findAllExpenses)
 
-    //CREATE Post
+    //CREATE Expense
     app.post("/api/expense", FinanceController.createExpense)
     
     //READ post

@@ -59,13 +59,18 @@ const Sidebar = () => {
       axios.post('http://localhost:8000/api/expense', {
         deposit,
         spent,
-        date
+        date,
       })
       .then(res => {
         console.log(res)
         console.log(res.data)
       })
       .catch(err => console.log(err))
+    }
+
+    //Refreshes page upon closing modal
+    const refreshPage = () => {
+      window.location.reload(false);
     }
 
     return (
@@ -380,7 +385,7 @@ const Sidebar = () => {
           >
             <div className="relative w-auto my-6 mx-auto max-w-3xl">
               {/*content*/}
-              <div className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]" onSubmit={onSubmitHandler}>
+              <form className="border-0 rounded-lg relative flex items-center justify-center flex-col w-full bg-white outline-none focus:outline-none py-8 ml-0 md:ml-[18%]" onSubmit={onSubmitHandler}>
 
               <div className="w-screen h-3/4 flex items-center justify-center">
             <div>
@@ -396,7 +401,8 @@ const Sidebar = () => {
                     <input
                       type="text"
                       name="deposit"
-                      onChange={(e)=>setDeposit(e.target.value)}
+                      id='deposit'
+                      onChange={(e) => setDeposit(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="0"
                       aria-describedby="price-currency"
@@ -418,7 +424,8 @@ const Sidebar = () => {
                     <input
                       type="text"
                       name="spent"
-                      onChange={(e)=>setSpent(e.target.value)}
+                      id='spent'
+                      onChange={(e) => setSpent(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-7 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="0"
                       aria-describedby="price-currency"
@@ -436,7 +443,8 @@ const Sidebar = () => {
                 <div className="relative mt-2 rounded-md shadow-sm">
                     <input
                       type="text"
-                      onChange={(e)=>setDate(e.target.value)}
+                      id='date'
+                      onChange={(e) => setDate(e.target.value)}
                       className="block w-full rounded-md border-0 py-1.5 pl-4 pr-12 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-blue-400 sm:text-sm sm:leading-6"
                       placeholder="mm/dd/yyyy"
                     />
@@ -444,14 +452,15 @@ const Sidebar = () => {
             </div>
 
             <div className='flex items-center justify-between'>
-              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600`} onClick={() => setShowModal(false)} type='submit'>Submit </button>
-              <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => setShowModal(false)}>Cancel</button>
+              {/* DO AN ONCLICK() CALLING THE setShowModal & onSubmitHandler SO UPON SUBMIT THE MODAL CLOSES AT THE SAME TIME???? */}
+              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600 `} type='submit' value="Confimred ✅">Submit</button>
+              <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => { refreshPage(); setShowModal(false);}}>Close</button>
             </div>
 
             </div>
         </div>
 
-              </div>
+              </form>
             </div>
           </div>
           <div className="opacity-25 fixed inset-0 z-40 bg-black"></div>

@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 
 const dbName = "financeAppDB";
 
-mongoose.connect(`mongodb://localhost/${dbName}`, {
+mongoose.connect(`mongodb://127.0.0.1:27017/${dbName}`, {
     useNewUrlParser: true,
     useUnifiedTopology: true
 })
