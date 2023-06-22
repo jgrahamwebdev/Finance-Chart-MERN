@@ -3,7 +3,6 @@ import { Fragment, useState } from 'react'
 import { Dialog, Menu, Transition } from '@headlessui/react'
 import {
   Bars3Icon,
-  CalendarDaysIcon,
   CreditCardIcon,
   Cog6ToothIcon,
   DocumentDuplicateIcon,
@@ -54,8 +53,9 @@ const Sidebar = () => {
     const [spent, setSpent] = useState(0);
     const [date, setDate] = useState("");
 
+
     const onSubmitHandler = (e) => {
-      e.preventDefault();
+      // e.preventDefault();
       axios.post('http://localhost:8000/api/expense', {
         deposit,
         spent,
@@ -65,7 +65,9 @@ const Sidebar = () => {
         console.log(res)
         console.log(res.data)
       })
-      .catch(err => console.log(err))
+      .catch((err) => {
+        console.log(err)
+      })
     }
 
     //Refreshes page upon closing modal
@@ -452,8 +454,8 @@ const Sidebar = () => {
             </div>
 
             <div className='flex items-center justify-between'>
-              {/* DO AN ONCLICK() CALLING THE setShowModal & onSubmitHandler SO UPON SUBMIT THE MODAL CLOSES AT THE SAME TIME???? */}
-              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600 `} type='submit' value="Confimred ✅">Submit</button>
+              {/* DO AN ONCLICK() CALLING THE setShowModal & onSubmitHandler SO UPON SUBMIT THE MODAL CLOSES AT THE SAME TIME✅ */}
+              <button className={`bg-green-500 px-4 py-2 text-white rounded-md hover:bg-green-600 focus:after:content-['ted']`} type='submit' onClick={() => { onSubmitHandler(); refreshPage(); setShowModal(false);}} >Submit</button>
               <button className={`bg-red-500 px-4 py-2 text-white rounded-md hover:bg-red-600`} onClick={() => { refreshPage(); setShowModal(false);}}>Close</button>
             </div>
 

@@ -117,13 +117,14 @@ const LineChart = () => {
                               <a href='#' className='text-blue-500 underline underline-offset-2 hover:text-black'>{expense.date}</a>
                             </td>
                             <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', 'whitespace-nowrap hidden px-3 py-4 text-sm text-green-600 sm:table-cell')}>
-                              {expense.deposit} &uarr;
+                              $ {expense.deposit} &uarr;
                             </td>
-                            <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', 'whitespace-nowrap hidden px-3 py-4 text-sm text-black lg:table-cell')}>
-                              {expense.spent} &darr;
+                            <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', expense.deposit < expense.spent ? 'text-red-500' : 'text-black', 'whitespace-nowrap hidden px-3 py-4 text-sm text-black lg:table-cell')}>
+                              $ {expense.spent} &darr;
                             </td>
                             <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', expense.deposit - expense.spent <= 0 ? 'text-red-500' : 'text-green-600', 'whitespace-nowrap px-3 py-4 text-sm text-black')}>
                               $ {expense.deposit - expense.spent }
+                              <div className={(expense.deposit < expense.spent ? 'flex underline' : 'hidden')}>Overspent</div>
                             </td>
                             <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', 'whitespace-nowrap hidden px-3 py-4 text-sm text-black lg:table-cell')}>
                               <button className='bg-red-500 text-white rounded-md py-1 px-2 hover:bg-red-600'>Delete</button>
