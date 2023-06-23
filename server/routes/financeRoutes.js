@@ -14,6 +14,6 @@ module.exports = (app) => {
     //UPDATE post
     // app.put("/posts/:id", PostController.updatePost)
     
-    //DELETE post
-    // app.delete("/delete/:id", PostController.deletePost)
+    //DELETE Expense
+    app.delete('/api/expense/:id', FinanceController.deleteAnExpense);
 }

@@ -1,5 +1,6 @@
 
 import { Line } from 'react-chartjs-2';
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
     Chart as ChartJS,
     LineElement,
@@ -24,6 +25,9 @@ ChartJS.register(
 const LineChart = () => {
     const [expenses, setExpenses] = useState([])
 
+    const navigate = useNavigate();
+    const { id } = useParams();
+
     useEffect(() => {
         axios.get('http://localhost:8000/api/expenses')
         .then((res) => { 
@@ -33,6 +37,17 @@ const LineChart = () => {
         .catch((err) => console.log(err))
 
     }, [])
+
+   // DELETE METHOD
+  const deleteExpense = (id) => {
+    axios
+      .delete(`http://localhost:8000/api/expense/${id}`)
+      .then((res) => {
+        window.location.reload(false);
+        window.scrollTo(0, 0)
+      })
+      .catch((err) => console.log(err));
+  };
 
   // CHART.JS 
     const data = {
@@ -127,7 +142,10 @@ const LineChart = () => {
                               <div className={(expense.deposit < expense.spent ? 'flex underline' : 'hidden')}>Overspent</div>
                             </td>
                             <td className={classNames(expenseIdx !== expense.length - 1 ? 'border-b border-gray-200' : '', 'whitespace-nowrap hidden px-3 py-4 text-sm text-black lg:table-cell')}>
-                              <button className='bg-red-500 text-white rounded-md py-1 px-2 hover:bg-red-600'>Delete</button>
+                              <button className='bg-red-500 text-white rounded-md py-1 px-2 hover:bg-red-600' onClick={(e) => {
+                                deleteExpense(expense._id)}}>
+                              Delete
+                            </button>
                             </td>
                           </tr>
                         ))}

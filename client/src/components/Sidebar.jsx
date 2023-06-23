@@ -73,6 +73,7 @@ const Sidebar = () => {
     //Refreshes page upon closing modal
     const refreshPage = () => {
       window.location.reload(false);
+      window.scrollTo(0, 0)
     }
 
     return (

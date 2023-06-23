@@ -23,3 +23,14 @@ module.exports.createExpense = (req, res) => {
             console.log(err)
         });
 }
+
+// DELETE
+module.exports.deleteAnExpense = (request, response) => {
+  Finance.deleteOne({ _id: request.params.id })
+    .then((deleteConfirmation) => {
+      response.json(deleteConfirmation);
+    })
+    .catch((err) => {
+      response.status(400).json({ err });
+    });
+};
